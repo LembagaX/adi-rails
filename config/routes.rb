@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   resources :users
-  post 'users/generate'
+  match 'users/generate', via: [ :post, :options ]
 end

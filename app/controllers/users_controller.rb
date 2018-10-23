@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :generate]
 
-
   def create
     if User.valid_token? params[:token]
       @user = User.new(user_params)
