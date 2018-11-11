@@ -21,6 +21,7 @@ RSpec.describe Part, type: :model do
   it { should validate_length_of(:code).is_at_least(3).is_at_most(45) }
   it { should validate_numericality_of(:stock).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(8388607) }
   it { should validate_numericality_of(:warn_at).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(127) }
+  it { should validate_uniqueness_of :code }
 
   setup do
     @part = create(:part)

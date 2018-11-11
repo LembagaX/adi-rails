@@ -13,8 +13,8 @@
 
 FactoryBot.define do
   factory :part do
-    name { "Glass Bottle 800 ml" }
-    code { "GB800" }
+    name { FFaker::Product.product_name }
+    code { FFaker::Product.product }
     stock { 200 }
     warn_at { 100 }
   end

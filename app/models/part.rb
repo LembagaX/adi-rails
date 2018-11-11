@@ -18,6 +18,7 @@ class Part < ApplicationRecord
   validates_length_of :code, :within => 3..45
   validates_numericality_of :stock, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 8388607
   validates_numericality_of :warn_at, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 127
+  validates_uniqueness_of :code
 
   def warnable?
     warn_at != 0
