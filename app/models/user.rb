@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   validates_length_of :password, :within => 6..72
 
+  validates_uniqueness_of :email
+
   def generate_token password
     if authenticate password
       payload = { user: self.as_json }
