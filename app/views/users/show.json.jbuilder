@@ -1,2 +1,2 @@
-json.partial! "users/user", user: @user
+json.partial! "users/user", user: @new_user
 json.code response.status
