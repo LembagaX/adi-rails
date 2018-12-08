@@ -26,6 +26,7 @@ RSpec.describe User, type: :model do
     describe "email" do
       it { should validate_presence_of :email }
       it { should validate_length_of(:email).is_at_least(6).is_at_most(45) }
+      it { should validate_uniqueness_of :email }
     end
 
     describe "password" do
@@ -34,23 +35,45 @@ RSpec.describe User, type: :model do
     end
   end
 
-  it 'generate token' do
-    create_user
-    token = @user.generate_token 'secret'
-    expect {
-      JWT.decode(token, Figaro.env.jwt_secret, Figaro.env.jwt_algorithm)
-    }.not_to raise_error
+  describe 'method test' do
+    it 'generate token' do
+      create_user
+      token = @user.generate_token 'secret'
+      expect {
+        JWT.decode(token, Figaro.env.jwt_secret, Figaro.env.jwt_algorithm)
+      }.not_to raise_error
 
-    expect {
-      JWT.decode(token, 'whateversecret', Figaro.env.jwt_algorithm)
-    }.to raise_error JWT::VerificationError
-  end
+      expect {
+        JWT.decode(token, 'whateversecret', Figaro.env.jwt_algorithm)
+      }.to raise_error JWT::VerificationError
+    end
 
-  it 'valid token?' do
-    create_user
-    token = @user.generate_token 'secret'
-    false_token = token.dup + "whatever"
-    expect(User.valid_token?(token)).to be true
-    expect(User.valid_token?(false_token)).to be false
+    it 'valid token?' do
+      create_user
+      token = @user.generate_token 'secret'
+      false_token = token.dup + "whatever"
+      expect(User.valid_token?(token)).to be true
+      expect(User.valid_token?(false_token)).to be false
+    end
+
+    it 'active_token' do
+      create_user
+      token  = @user.generate_token 'secret'
+      secret = JWT.decode(token, Figaro.env.jwt_secret, Figaro.env.jwt_algorithm)
+      expect(User.first.secret).to eq secret[0]['user']['secret']
+    end
+
+    it 'update_secret' do
+      create_user
+      last_secret = @user.secret
+      @user.update password: 'secret'
+      expect(last_secret).not_to eq User.first.secret
+    end
+
+    it 'find_by_token' do
+      create_user
+      token = @user.generate_token 'secret'
+      expect(User.find_by_token token).to eq @user
+    end
   end
 end

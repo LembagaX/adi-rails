@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_11_072313) do
+ActiveRecord::Schema.define(version: 2018_12_08_043846) do
 
   create_table "parts", force: :cascade do |t|
     t.string "name", limit: 45
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_072313) do
     t.string "password_digest", limit: 72
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "secret", limit: 60
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

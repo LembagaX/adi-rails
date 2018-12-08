@@ -38,11 +38,12 @@ RSpec.describe UsersController, type: :controller do
     it 'token tidak valid (203)' do
       new = attributes_for :user
       token = @user.generate_token @user.password
-      post :create, format: :json, params: {
-        user: new,
-        token: token + 'invalidstring'
-      }
-      expect(response).to have_http_status 203
+      expect{
+        post :create, format: :json, params: {
+          user: new,
+          token: token + 'invalidstring'
+        }
+      }.to raise_error JWT::VerificationError
       expect(User.all.count).to eq 1
     end
 

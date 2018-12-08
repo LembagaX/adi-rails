@@ -11,6 +11,8 @@
 #
 
 class User < ApplicationRecord
+  before_save :update_secret
+
   has_secure_password
   validates_presence_of :name
   validates_length_of :name, :within => 6..45
@@ -24,9 +26,19 @@ class User < ApplicationRecord
 
   def generate_token password
     if authenticate password
+      self.update password: password
       payload = { user: self.as_json }
       JWT.encode payload, Figaro.env.jwt_secret, Figaro.env.jwt_algorithm
     end
+  end
+
+  def active_token? token
+    payload = JWT.decode token, Figaro.env.jwt_secret, Figaro.env.jwt_algorithm
+    payload[0]['user']['secret'] == self.secret
+  end
+
+  def update_secret
+    self.secret = BCrypt::Password.create(self.email)
   end
 
   def User.valid_token? token
@@ -37,5 +49,10 @@ class User < ApplicationRecord
       response = false
     end
     response
+  end
+
+  def User.find_by_token token
+    payload = JWT.decode token, Figaro.env.jwt_secret, Figaro.env.jwt_algorithm
+    User.find_by_email payload[0]['user']['email']
   end
 end
