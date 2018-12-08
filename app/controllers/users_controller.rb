@@ -1,17 +1,18 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :generate]
+  before_action :set_user_from_token, only: [:create]
 
   def create
-    if User.valid_token? params[:token]
-      @user = User.new(user_params)
-      if @user.save
-        # send email to user
-        render :show, status: :ok, location: @user
+    if User.valid_token? params[:token] and @user.active_token? params[:token]
+      @new_user = User.new(user_params)
+      if @new_user.save
+        # TODO : send email to user
+        render :show, status: :ok, location: @new_user
       else
-        render json: { message: @user.errors, code: 422 }, status: :unprocessable_entity
+        render json: { message: @new_user.errors, code: :unprocessable_entity }, status: :unprocessable_entity
       end
     else
-      render :show, status: 203
+      render :show, status: :non_authoritative_information
     end
   end
 
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
     if @user and @user.authenticate params[:user][:password]
       generate_token
     else
-      render status: 203
+      render status: :non_authoritative_information
     end
   end
 
@@ -42,23 +43,7 @@ class UsersController < ApplicationController
       @token = @user.generate_token params[:user][:password]
     end
 
-  #def index
-    #@users = User.all
-  #end
-
-  #def show
-  #end
-
-  #def update
-    #if @user.update(user_params)
-      #render :show, status: :ok, location: @user
-    #else
-      #render json: @user.errors, status: :unprocessable_entity
-    #end
-  #end
-
-  #def destroy
-    #@user.destroy
-  #end
-
+    def set_user_from_token
+      @user = User.find_by_token params[:token]
+    end
 end
