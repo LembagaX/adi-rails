@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :generate]
-  before_action :set_user_from_token, only: [:create]
+  before_action :set_user_from_token, only: [:create, :check]
 
   def create
     if User.valid_token? params[:token] and @user.active_token? params[:token]
@@ -21,6 +21,14 @@ class UsersController < ApplicationController
       generate_token
     else
       render status: :non_authoritative_information
+    end
+  end
+
+  def check
+    if @user.active_token? params[:token]
+      render json: { code: 200 }, status: :ok
+    else
+      render json: { code: 203 }, status: :non_authoritative_information
     end
   end
 
