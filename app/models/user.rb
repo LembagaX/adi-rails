@@ -24,6 +24,8 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :email
 
+  belongs_to :role
+
   def generate_token password
     if authenticate password
       self.update password: password
@@ -54,5 +56,13 @@ class User < ApplicationRecord
   def User.find_by_token token
     payload = JWT.decode token, Figaro.env.jwt_secret, Figaro.env.jwt_algorithm
     User.find_by_email payload[0]['user']['email']
+  end
+
+  def is_admin?
+    self.role.name == 'administrator'
+  end
+
+  def has_role? params
+    self.role.name == params
   end
 end

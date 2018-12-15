@@ -1,6 +1,7 @@
 require 'rails_helper'
 RSpec.describe PartsController, type: :controller do
   setup do
+    create :role
     @user = create :user, password: 'secret'
     @token = @user.generate_token 'secret'
     request.headers.merge! token: @token
