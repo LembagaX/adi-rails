@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
 
   setup do
+    create :role
     @user = create :user
   end
 
@@ -29,10 +30,25 @@ RSpec.describe UsersController, type: :controller do
       token = @user.generate_token @user.password
       post :create, format: :json, params: {
         user: new,
-        token: token
+        token: token,
+        role_id: 1
       }
       expect(response).to have_http_status :ok
       expect(User.all.count).to eq 2
+    end
+
+    it 'failed 203' do
+      Role.create display_name: 'Another Role'
+      new = attributes_for :user, role_id: Role.last.id
+      @user.update role_id: Role.last.id
+      token = @user.generate_token @user.password
+      post :create, format: :json, params: {
+        user: new,
+        token: token,
+        role_id: 1
+      }
+      expect(response).to have_http_status :non_authoritative_information
+      expect(User.all.count).to eq 1
     end
 
     it 'token tidak valid (203)' do
