@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Parts", type: :request do
   setup do
+    create :role
     @user = create :user, password: 'secret'
     @token = @user.generate_token 'secret'
   end
-  
+
   describe "GET /parts.json" do
     it "return 200" do
       get '/parts.json', headers: { token: @token }
