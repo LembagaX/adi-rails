@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy, :generate]
+  before_action :set_user, only: [:show, :update, :destroy, :token]
   before_action :set_user_from_token, only: [:create, :check]
 
   def create
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def generate
+  def token
     if @user and @user.authenticate params[:user][:password]
       generate_token
     else

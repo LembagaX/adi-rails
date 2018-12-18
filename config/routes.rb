@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  post 'users/check'
   resources :parts
-  resources :users
-  post 'users/generate'
+  resources :users do
+    collection do
+      post :check
+      post :token
+    end
+  end
 end

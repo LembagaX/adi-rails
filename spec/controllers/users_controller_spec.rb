@@ -7,19 +7,19 @@ RSpec.describe UsersController, type: :controller do
     @user = create :user
   end
 
-  describe "GET #generate" do
+  describe "GET #token" do
     it "returns http success" do
-      post :generate, format: :json, params: { user: { email: @user.email, password: @user.password } }
+      post :token, format: :json, params: { user: { email: @user.email, password: @user.password } }
       expect(response).to have_http_status :success
     end
 
     it "returns http 203 (email salah)" do
-      post :generate, format: :json, params: { user: { email: 'wrong@email.fake', password: @user.password } }
+      post :token, format: :json, params: { user: { email: 'wrong@email.fake', password: @user.password } }
       expect(response).to have_http_status 203
     end
 
     it "returns http 203 (password salah)" do
-      post :generate, format: :json, params: { user: { email: @user.email, password: 'wrongpassword' } }
+      post :token, format: :json, params: { user: { email: @user.email, password: 'wrongpassword' } }
       expect(response).to have_http_status 203
     end
   end
