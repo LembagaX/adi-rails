@@ -7,8 +7,8 @@ RSpec.describe UsersController, type: :routing do
       expect(:post => "/users").to route_to("users#create")
     end
 
-    it "routes to #generate" do
-      expect(:post => "/users/generate").to route_to("users#generate")
+    it "routes to #token" do
+      expect(:post => "/users/token").to route_to("users#token")
     end
 
     #it "routes to #index" do

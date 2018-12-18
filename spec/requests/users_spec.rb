@@ -12,9 +12,9 @@ RSpec.describe "Users", type: :request do
       expect(response).to have_http_status :success
     end
 
-    it '/generate' do
+    it '/token' do
       user = create :user
-      post users_generate_path format: :json, params: { user: { email: user.email, password: user.password, role_id: 1 } }
+      post token_users_path format: :json, params: { user: { email: user.email, password: user.password, role_id: 1 } }
       expect(response).to have_http_status :success
     end
   end
