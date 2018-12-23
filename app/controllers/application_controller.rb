@@ -3,6 +3,8 @@ class ApplicationController < ActionController::API
       if request.headers['token']
           unless User.valid_token? request.headers['token']
               render json: { message: 'token not valid'}, status: :non_authoritative_information
+          else
+            @current_user = User.find_by_token request.headers[:token]
           end
       else
           render json: { message: 'token not found' }, status: :non_authoritative_information
@@ -10,6 +12,6 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @user ||= User.new
+    @current_user ||= User.new
   end
 end
