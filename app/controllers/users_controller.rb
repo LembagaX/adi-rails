@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def destroy
     if can? :manage, User
       if @user.destroy
-        render json: { code: :success }, status: 200
+        render json: { code: 200 }, status: :ok
       end
     end
   end
