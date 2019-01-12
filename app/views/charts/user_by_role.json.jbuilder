@@ -1,0 +1,1 @@
+json.array! @roles, :name, :display_name, :users_count

@@ -10,4 +10,9 @@ class Role < ApplicationRecord
   validates_length_of :display_name, :within => 3..20
 
   has_many :users
+  
+  def users_count
+    self.users.count
+  end
+  
 end
