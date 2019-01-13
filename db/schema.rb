@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_15_143844) do
+ActiveRecord::Schema.define(version: 2019_01_13_065734) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -24,14 +24,13 @@ ActiveRecord::Schema.define(version: 2018_12_15_143844) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-  create_table "parts", force: :cascade do |t|
-    t.string "name", limit: 45
-    t.string "code", limit: 45
-    t.integer "stock", limit: 3, default: 0
-    t.integer "warn_at", limit: 1, default: 0
+  create_table "materials", force: :cascade do |t|
+    t.string "name", limit: 120
+    t.string "slug", limit: 120
+    t.integer "stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code"], name: "index_parts_on_code", unique: true
+    t.index ["slug"], name: "index_materials_on_slug", unique: true
   end
 
   create_table "roles", force: :cascade do |t|
