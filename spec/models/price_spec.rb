@@ -1,17 +1,15 @@
 # == Schema Information
 #
-# Table name: materials
+# Table name: prices
 #
 #  id         :integer          not null, primary key
-#  name       :string(120)
-#  slug       :string(120)
-#  stock      :integer
+#  amount     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'rails_helper'
 
-RSpec.describe Material, type: :model do
+RSpec.describe Price, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

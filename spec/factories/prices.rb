@@ -1,19 +1,15 @@
 # == Schema Information
 #
-# Table name: materials
+# Table name: prices
 #
 #  id         :integer          not null, primary key
-#  name       :string(120)
-#  slug       :string(120)
-#  stock      :integer
+#  amount     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryBot.define do
-  factory :material do
-    name { "MyString" }
-    slug { "MyString" }
-    stock { 1 }
+  factory :price do
+    amount { 1 }
   end
 end

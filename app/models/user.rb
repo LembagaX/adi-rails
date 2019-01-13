@@ -8,6 +8,8 @@
 #  password_digest :string(72)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  secret          :string(60)
+#  role_id         :integer
 #
 
 class User < ApplicationRecord
