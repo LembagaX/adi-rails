@@ -2,9 +2,13 @@ class PurchasesController < ApplicationController
     before_action :check_token
 
     def create
+        @code = 400
         @provider = Provider.friendly.find_or_create_by provider_param
         @purchase = @provider.purchases.create purchase_param.merge(user_id: current_user.id)
         build_materials
+        if @provider and @purchase
+          @code = 200
+        end
     end
 
     private
