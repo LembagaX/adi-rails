@@ -25,6 +25,17 @@ class Material < ApplicationRecord
   validates_numericality_of :stock, greater_than: 0
 
   def price
-    prices.order(created_at: :desc).first
+    prices.order(created_at: :desc).first ? prices.order(created_at: :desc).first.amount : 0
   end
+
+  def restock stock
+    self.update stock: (self.stock + stock)    
+  end
+
+  def log_price price, provider
+    if self.price != price
+      self.prices.create amount: price, provider_id: provider
+    end        
+  end
+  
 end

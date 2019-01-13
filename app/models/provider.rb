@@ -15,6 +15,7 @@ class Provider < ApplicationRecord
 
   has_and_belongs_to_many :materials
   has_many :prices
+  has_many :purchases
 
   validates_presence_of :name
   validates_length_of :name, :within => 6..120
