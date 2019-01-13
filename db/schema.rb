@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_13_071531) do
+ActiveRecord::Schema.define(version: 2019_01_13_073911) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -33,12 +33,29 @@ ActiveRecord::Schema.define(version: 2019_01_13_071531) do
     t.index ["slug"], name: "index_materials_on_slug", unique: true
   end
 
+  create_table "materials_providers", id: false, force: :cascade do |t|
+    t.integer "material_id"
+    t.integer "provider_id"
+    t.index ["material_id"], name: "index_materials_providers_on_material_id"
+    t.index ["provider_id"], name: "index_materials_providers_on_provider_id"
+  end
+
   create_table "prices", force: :cascade do |t|
     t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "material_id"
+    t.integer "provider_id"
     t.index ["material_id"], name: "index_prices_on_material_id"
+    t.index ["provider_id"], name: "index_prices_on_provider_id"
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string "name", limit: 120
+    t.string "slug", limit: 120
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_providers_on_slug", unique: true
   end
 
   create_table "roles", force: :cascade do |t|
