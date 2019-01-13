@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_13_073911) do
+ActiveRecord::Schema.define(version: 2019_01_13_080339) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2019_01_13_073911) do
     t.index ["provider_id"], name: "index_materials_providers_on_provider_id"
   end
 
+  create_table "materials_purchases", id: false, force: :cascade do |t|
+    t.integer "material_id"
+    t.integer "purchase_id"
+    t.integer "price"
+    t.integer "quantity"
+    t.index ["material_id"], name: "index_materials_purchases_on_material_id"
+    t.index ["purchase_id"], name: "index_materials_purchases_on_purchase_id"
+  end
+
   create_table "prices", force: :cascade do |t|
     t.integer "amount"
     t.datetime "created_at", null: false
@@ -56,6 +65,19 @@ ActiveRecord::Schema.define(version: 2019_01_13_073911) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_providers_on_slug", unique: true
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.string "invoice", limit: 150
+    t.integer "amount"
+    t.string "note", limit: 255
+    t.datetime "purchased_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "provider_id"
+    t.integer "user_id"
+    t.index ["provider_id"], name: "index_purchases_on_provider_id"
+    t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|

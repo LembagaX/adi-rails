@@ -16,6 +16,7 @@ class Material < ApplicationRecord
 
   has_many :prices
   has_and_belongs_to_many :providers
+  has_and_belongs_to_many :purchases
 
   validates_presence_of :name
   validates_length_of :name, :within => 6..120
