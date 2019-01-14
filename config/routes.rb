@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :providers, except: [:create]
   resources :materials, except: [:create]
   resources   :users do
     collection do
