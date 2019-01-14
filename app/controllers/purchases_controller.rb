@@ -1,8 +1,8 @@
 class PurchasesController < ApplicationController
     before_action :check_token
+    before_action :set_response_code
 
     def create
-        @code = 400
         @provider = Provider.friendly.find_or_create_by provider_param
         @purchase = @provider.purchases.create purchase_param.merge(user_id: current_user.id)
         build_materials
@@ -12,6 +12,11 @@ class PurchasesController < ApplicationController
     end
 
     private
+
+    def set_response_code
+        @code = 400
+    end
+    
 
     def provider_param
         params.require(:provider).permit(:name)
@@ -24,12 +29,17 @@ class PurchasesController < ApplicationController
     def build_materials
         params.require(:materials).map do |material|
             single = material.permit(:name, :quantity, :price)
-            if @provider.materials.friendly.find_by_slug single[:name].parameterize
-                @provider.materials.friendly.find(single[:name].parameterize).restock single[:quantity]
-                @provider.materials.friendly.find(single[:name].parameterize).log_price single[:price], @provider.id
+            material_exist = Material.friendly.find_by_slug single[:name].parameterize
+            if material_exist
+                material_exist.restock single[:quantity]
+                material_exist.log_price single[:price], @provider.id
+                unless material_exist.providers.friendly.find_by_slug @provider.slug
+                    @provider.materials << material_exist
+                end
             else
-                @provider.materials.create name: single[:name], stock: single[:quantity]
-                @provider.materials.friendly.find(single[:name].parameterize).log_price single[:price], @provider.id
+                new_material = Material.create name: single[:name], stock: single[:quantity]
+                new_material.log_price single[:price], @provider.id
+                @provider.materials << new_material
             end
         end
     end
