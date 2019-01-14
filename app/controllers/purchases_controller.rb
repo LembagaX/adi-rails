@@ -1,6 +1,5 @@
 class PurchasesController < ApplicationController
     before_action :check_token
-    before_action :set_response_code
 
     def create
         @provider = Provider.friendly.find_or_create_by provider_param
@@ -12,11 +11,6 @@ class PurchasesController < ApplicationController
     end
 
     private
-
-    def set_response_code
-        @code = 400
-    end
-    
 
     def provider_param
         params.require(:provider).permit(:name)

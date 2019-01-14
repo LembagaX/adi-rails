@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources   :parts
+  resources :materials, except: [:create]
   resources   :users do
     collection do
       post  :check
