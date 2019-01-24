@@ -29,11 +29,13 @@ class PurchasesController < ApplicationController
                 material_exist.log_price single[:price], @provider.id
                 unless material_exist.providers.friendly.find_by_slug @provider.slug
                     @provider.materials << material_exist
+                    material_exist.material_purchases.create purchase_id: @purchase.id, price: single[:price], quantity: single[:quantity]
                 end
             else
                 new_material = Material.create name: single[:name], stock: single[:quantity]
                 new_material.log_price single[:price], @provider.id
                 @provider.materials << new_material
+                new_material.material_purchases.create purchase_id: @purchase.id, price: single[:price], quantity: single[:quantity]
             end
         end
     end

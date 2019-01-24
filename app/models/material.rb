@@ -15,14 +15,17 @@ class Material < ApplicationRecord
   friendly_id :name, use: :slugged
 
   has_many :prices
+  has_many :material_purchases
+  has_many :purchases, through: :material_purchases
   has_and_belongs_to_many :providers
-  has_and_belongs_to_many :purchases
 
   validates_presence_of :name
   validates_length_of :name, :within => 6..120
 
   validates_presence_of :stock
   validates_numericality_of :stock, greater_than: 0
+
+  alias purchase_history material_purchases
 
   def price
     prices.order(created_at: :desc).first ? prices.order(created_at: :desc).first.amount : 0
