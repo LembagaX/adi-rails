@@ -28,6 +28,8 @@ class User < ApplicationRecord
 
   belongs_to :role
 
+  has_many :purchases, dependent: :destroy
+
   def generate_token password
     if authenticate password
       self.update password: password
