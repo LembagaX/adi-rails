@@ -14,8 +14,8 @@ class Provider < ApplicationRecord
   friendly_id :name, use: :slugged
 
   has_and_belongs_to_many :materials
-  has_many :prices
-  has_many :purchases
+  has_many :prices, dependent: :destroy
+  has_many :purchases, dependent: :destroy
 
   validates_presence_of :name
   validates_length_of :name, :within => 6..120
