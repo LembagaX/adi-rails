@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   scope :charts, controller: 'charts' do
     get :user_by_role
+    get :purchasing_growth
   end
   resources :purchases, only: [:create]
 end

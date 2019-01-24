@@ -37,5 +37,7 @@ module AdiService
         resource '*', headers: :any, methods: [:get, :post, :options, :delete, :put, :patch]
       end
     end
+    config.time_zone = 'Jakarta'
+    config.active_record.default_timezone = :local
   end
 end
