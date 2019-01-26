@@ -18,6 +18,7 @@ class Material < ApplicationRecord
   has_many :material_purchases, dependent: :destroy
   has_many :purchases, through: :material_purchases, dependent: :destroy
   has_and_belongs_to_many :providers, dependent: :destroy
+  has_many :depreciations, dependent: :destroy
 
   validates_presence_of :name
   validates_length_of :name, :within => 6..120

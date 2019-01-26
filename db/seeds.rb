@@ -4,6 +4,7 @@ Provider.destroy_all
 Material.destroy_all
 Purchase.destroy_all
 Price.destroy_all
+Depreciation.destroy_all
 
 Role.create id: 1, display_name: 'Administrator'
 Role.create id: 2, display_name: 'Staff Warehouse'

@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_13_080339) do
+ActiveRecord::Schema.define(version: 2019_01_26_163507) do
+
+  create_table "depreciations", force: :cascade do |t|
+    t.string "note", limit: 255
+    t.integer "amount"
+    t.integer "quantity"
+    t.integer "provider_id"
+    t.integer "material_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_id"], name: "index_depreciations_on_material_id"
+    t.index ["provider_id"], name: "index_depreciations_on_provider_id"
+    t.index ["user_id"], name: "index_depreciations_on_user_id"
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false

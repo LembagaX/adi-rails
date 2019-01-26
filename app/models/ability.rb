@@ -5,5 +5,10 @@ class Ability
     if user.is_admin?
       can :manage, User
     end
+    
+    if user.has_role? 'staff-warehouse'
+      can :manage, Depreciation
+    end
+    
   end
 end

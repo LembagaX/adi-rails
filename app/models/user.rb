@@ -27,8 +27,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
 
   belongs_to :role
-
   has_many :purchases, dependent: :destroy
+  has_many :depreciations, dependent: :destroy
 
   def generate_token password
     if authenticate password

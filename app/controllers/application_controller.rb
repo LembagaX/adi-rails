@@ -20,4 +20,11 @@ class ApplicationController < ActionController::API
   def current_user
     @current_user ||= User.new
   end
+
+  def check_warehouse
+    unless can? :manage, Depreciation
+      render json: { message: 'unauthorized' }, status: :non_authoritative_information
+    end
+  end
+  
 end

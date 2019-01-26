@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
     before_action :check_token
+    before_action :check_warehouse
 
     def create
         @provider = Provider.friendly.find_or_create_by provider_param
