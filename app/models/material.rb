@@ -14,7 +14,7 @@ class Material < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  has_many :prices, dependent: :destroy
+  has_many :prices, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :material_purchases, dependent: :destroy
   has_many :purchases, through: :material_purchases, dependent: :destroy
   has_and_belongs_to_many :providers, dependent: :destroy
