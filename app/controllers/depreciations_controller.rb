@@ -13,6 +13,8 @@ class DepreciationsController < ApplicationController
   def create
     @depreciation = Depreciation.new(depreciation_params)
     if @depreciation.save
+      stock = @depreciation.material.stock - @depreciation.quantity
+      @depreciation.material.update stock: stock
       render :show, status: :created, location: @depreciation
     else
       render json: @depreciation.errors, status: :unprocessable_entity
