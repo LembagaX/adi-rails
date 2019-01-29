@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   resources :providers, except: [:create]
   resources :materials, except: [:create] do
     resources :depreciations, except: [:update]
-    resources :purchases, only: [:create, :index]
+    resources :purchases, only: [:index]
   end
+  resources :purchases, only: [:create]
   resources   :users do
     collection do
       post  :check
