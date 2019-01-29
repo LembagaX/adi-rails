@@ -1,7 +1,13 @@
 class PurchasesController < ApplicationController
     before_action :check_token
     before_action :check_warehouse
+    before_action :set_material
 
+    def index
+        @purchases = @material.purchases
+    end
+    
+    
     def create
         @provider = Provider.friendly.find_or_create_by provider_param
         @purchase = @provider.purchases.create purchase_param.merge(user_id: current_user.id)
@@ -40,4 +46,9 @@ class PurchasesController < ApplicationController
             end
         end
     end
+
+    def set_material
+        @material = Material.find params[:material_id]
+    end
+    
 end

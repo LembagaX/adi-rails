@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :providers, except: [:create]
   resources :materials, except: [:create] do
     resources :depreciations, except: [:update]
+    resources :purchases, only: [:create, :index]
   end
   resources   :users do
     collection do
@@ -14,5 +15,4 @@ Rails.application.routes.draw do
     get :user_by_role
     get :purchasing_growth
   end
-  resources :purchases, only: [:create]
 end

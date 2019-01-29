@@ -15,6 +15,7 @@ class Purchase < ApplicationRecord
   belongs_to :provider
   belongs_to :user
   has_and_belongs_to_many :materials, dependent: :destroy
+  has_many :material_purchases, dependent: :destroy
 
   validates_presence_of :invoice
   validates_length_of :invoice, :within => 6..150
