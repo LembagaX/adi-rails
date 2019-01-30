@@ -3,6 +3,7 @@ Role.destroy_all
 Provider.destroy_all
 Material.destroy_all
 Purchase.destroy_all
+MaterialPurchase.destroy_all
 Price.destroy_all
 Depreciation.destroy_all
 

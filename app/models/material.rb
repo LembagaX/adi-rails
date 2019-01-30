@@ -14,6 +14,8 @@ class Material < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  before_destroy :destroyable
+
   has_many :prices, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :material_purchases, dependent: :destroy
   has_many :purchases, through: :material_purchases, dependent: :destroy
@@ -24,7 +26,7 @@ class Material < ApplicationRecord
   validates_length_of :name, :within => 6..120
 
   validates_presence_of :stock
-  validates_numericality_of :stock, greater_than: 0
+  validates_numericality_of :stock, greater_than_or_equal_to: 0
 
   alias purchase_history material_purchases
 
@@ -40,6 +42,12 @@ class Material < ApplicationRecord
     if self.price != price
       self.prices.create amount: price, provider_id: provider
     end        
+  end
+
+  def destroyable
+    if self.stock != 0
+      throw :abort
+    end
   end
   
 end
