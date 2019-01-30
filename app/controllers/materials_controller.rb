@@ -20,6 +20,8 @@ class MaterialsController < ApplicationController
   def destroy
     if @material.destroy
       render json: { material: @material, code: 200 }
+    else
+      render json: { material: @material, code: :unprocessable_entity }, status: :unprocessable_entity
     end
   end
 
