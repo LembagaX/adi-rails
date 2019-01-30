@@ -1,5 +1,4 @@
 class MaterialPurchase < ApplicationRecord
-    self.table_name = 'materials_purchases'
     belongs_to :material
     belongs_to :purchase
 

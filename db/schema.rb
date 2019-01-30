@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_26_163507) do
+ActiveRecord::Schema.define(version: 2019_01_30_163432) do
 
   create_table "depreciations", force: :cascade do |t|
     t.string "note", limit: 255
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 2019_01_26_163507) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "material_purchases", force: :cascade do |t|
+    t.integer "material_id"
+    t.integer "purchase_id"
+    t.integer "price"
+    t.integer "quantity"
+    t.index ["material_id"], name: "index_material_purchases_on_material_id"
+    t.index ["purchase_id"], name: "index_material_purchases_on_purchase_id"
+  end
+
   create_table "materials", force: :cascade do |t|
     t.string "name", limit: 120
     t.string "slug", limit: 120
@@ -52,15 +61,6 @@ ActiveRecord::Schema.define(version: 2019_01_26_163507) do
     t.integer "provider_id"
     t.index ["material_id"], name: "index_materials_providers_on_material_id"
     t.index ["provider_id"], name: "index_materials_providers_on_provider_id"
-  end
-
-  create_table "materials_purchases", id: false, force: :cascade do |t|
-    t.integer "material_id"
-    t.integer "purchase_id"
-    t.integer "price"
-    t.integer "quantity"
-    t.index ["material_id"], name: "index_materials_purchases_on_material_id"
-    t.index ["purchase_id"], name: "index_materials_purchases_on_purchase_id"
   end
 
   create_table "prices", force: :cascade do |t|
