@@ -15,4 +15,6 @@ class Category < ApplicationRecord
 
     validates_presence_of :name
     validates_length_of :name, within: 6...50
+
+    has_many :products, dependent: :destroy
 end
