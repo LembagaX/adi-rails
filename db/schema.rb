@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_163432) do
+ActiveRecord::Schema.define(version: 2019_01_31_144657) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", limit: 60
+    t.string "slug", limit: 60
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_categories_on_slug", unique: true
+  end
 
   create_table "depreciations", force: :cascade do |t|
     t.string "note", limit: 255

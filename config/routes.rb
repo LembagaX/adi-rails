@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   resources :providers, except: [:create]
   resources :materials, except: [:create] do
     resources :depreciations, except: [:update]

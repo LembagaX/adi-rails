@@ -9,6 +9,8 @@
 #  purchased_at :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  provider_id  :integer
+#  user_id      :integer
 #
 
 class Purchase < ApplicationRecord
