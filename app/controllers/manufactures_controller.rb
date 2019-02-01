@@ -21,7 +21,7 @@ class ManufacturesController < ApplicationController
   end
 
   def update
-    if @manufacture.update(manufacture_params)
+    if @manufacture.update(user: current_user)
       render :show, status: :ok, location: @manufacture
     else
       render json: @manufacture.errors, status: :unprocessable_entity

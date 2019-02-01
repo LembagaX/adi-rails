@@ -14,6 +14,7 @@
 
 class User < ApplicationRecord
   before_save :update_secret
+  before_destroy :destroyable
 
   has_secure_password
   validates_presence_of :name
@@ -29,6 +30,7 @@ class User < ApplicationRecord
   belongs_to :role
   has_many :purchases, dependent: :destroy
   has_many :depreciations, dependent: :destroy
+  has_many :manufactures
 
   def generate_token password
     if authenticate password
@@ -69,4 +71,12 @@ class User < ApplicationRecord
   def has_role? params
     self.role.name == params
   end
+
+  def destroyable
+    if self.manufactures.count != 0
+      throw :abort
+    end
+    
+  end
+  
 end
