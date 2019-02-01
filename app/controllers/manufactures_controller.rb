@@ -2,6 +2,7 @@ class ManufacturesController < ApplicationController
   before_action :check_token
   before_action :check_warehouse
   before_action :set_manufacture, only: [:show, :update, :destroy]
+  before_action :check_unused_manufacture, only: [:create]
 
   def index
     @manufactures = Manufacture.all
@@ -33,6 +34,16 @@ class ManufacturesController < ApplicationController
       render :show, status: :ok, location: @manufacture
     else
       render json: @manufacture.errors, status: :unprocessable_entity
+    end
+  end
+
+  def check_unused_manufacture
+    unless Manufacture.last.nil?
+      if Manufacture.last.products.count == 0
+        @manufacture = Manufacture.last
+        @manufacture.update user: current_user
+        render :show, status: :ok, location: @manufacture
+      end
     end
   end
 
