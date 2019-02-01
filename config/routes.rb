@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :manufactures
   # resources :assemblies
   resources :products
   resources :categories
