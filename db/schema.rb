@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_080303) do
+ActiveRecord::Schema.define(version: 2019_02_01_100037) do
 
   create_table "assemblies", force: :cascade do |t|
     t.integer "product_id"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 2019_02_01_080303) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "manifests", force: :cascade do |t|
+    t.integer "manufacture_id"
+    t.integer "product_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manufacture_id"], name: "index_manifests_on_manufacture_id"
+    t.index ["product_id"], name: "index_manifests_on_product_id"
   end
 
   create_table "manufactures", force: :cascade do |t|
@@ -108,6 +118,7 @@ ActiveRecord::Schema.define(version: 2019_02_01_080303) do
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "stock"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["code"], name: "index_products_on_code", unique: true
   end

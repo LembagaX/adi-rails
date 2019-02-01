@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :manufactures
-  # resources :assemblies
+  resources :manufactures do
+    resources :manifests, only: [:create, :delete]
+  end
+  resources :assemblies, only: [:index, :show]
   resources :products
   resources :categories
   resources :providers, except: [:create]

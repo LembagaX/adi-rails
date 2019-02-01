@@ -15,9 +15,12 @@
 class Product < ApplicationRecord
   belongs_to :category, optional: true
   before_save :attach_category
+  before_validation :set_price_and_stock, on: :create
 
   has_many :assemblies, dependent: :destroy
   has_many :materials, through: :assemblies
+  has_many :manifests, dependent: :destroy
+  has_many :manufactures, through: :manifests
   
   validates_presence_of :code
   validates_length_of :code, within: 4..10
@@ -30,6 +33,7 @@ class Product < ApplicationRecord
   validates_length_of :serial_number, within: 5..15
 
   validates_numericality_of :price, greater_than_or_equal_to: 0
+  validates_numericality_of :stock, greater_than_or_equal_to: 0
 
   private
   def attach_category
@@ -37,5 +41,11 @@ class Product < ApplicationRecord
       self.category = Category.friendly.find 'uncategorized'
     end
   end
+
+  def set_price_and_stock
+    self.price = 0
+    self.stock = 0
+  end
+  
   
 end

@@ -13,6 +13,10 @@ class Manufacture < ApplicationRecord
   before_create :build_code
   
   belongs_to :user
+  has_many :manifests, dependent: :destroy
+  has_many :products, through: :manifests
+
+  validates_uniqueness_of :code
 
   def build_code
     first   = Time.current.strftime '%d%m%Y'
