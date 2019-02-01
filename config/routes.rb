@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :assemblies
+  # resources :assemblies
   resources :products
   resources :categories
   resources :providers, except: [:create]
