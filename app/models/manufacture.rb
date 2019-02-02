@@ -11,7 +11,6 @@
 
 class Manufacture < ApplicationRecord
   before_create :build_code
-  
   belongs_to :user
   has_many :manifests, dependent: :destroy
   has_many :products, through: :manifests
@@ -27,10 +26,13 @@ class Manufacture < ApplicationRecord
     role    = '02'
     self.code = first + offset + (mans + 1).to_s + role
   end
-  
+
+  def products_created
+    self.manifests.sum :quantity
+  end
+
   private
   def save_code
     self.code = self.friendly_id
   end
-  
 end
