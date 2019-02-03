@@ -23,8 +23,9 @@ class ManifestsController < ApplicationController
   end
 
   def update
+    quantity = @manifest.quantity
     if @manifest.update(manifest_params)
-      @manifest.sub_product_stock manifest_params[:quantity]
+      @manifest.sub_product_stock(quantity - manifest_params[:quantity])
       render :show, status: :ok, location: manufacture_manifests_url(@manifest.manufacture, @manifest, format: :json)
     else
       render json: @manifest.errors, status: :unprocessable_entity
