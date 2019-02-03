@@ -7,9 +7,9 @@ class Manifest < ApplicationRecord
   validates_presence_of :quantity
   validates_numericality_of :quantity, greater_than_or_equal_to: 1
 
-  def sub_product_stock
+  def sub_product_stock number
     product = self.product
-    product.update stock: product.stock - self.quantity
+    product.update stock: product.stock - number
   end
 
   def add_product_stock number
