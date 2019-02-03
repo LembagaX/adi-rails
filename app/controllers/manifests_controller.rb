@@ -15,7 +15,7 @@ class ManifestsController < ApplicationController
     @manifest = Manufacture.find_by_code(params[:manufacture_id]).manifests.new(manifest_params)
 
     if @manifest.save
-      update_product
+      @manifest.add_product_stock manifest_params[:quantity]
       render :show, status: :created, location: manufacture_manifests_url(@manifest.manufacture, @manifest, format: :json)
     else
       render json: @manifest.errors, status: :unprocessable_entity
@@ -24,6 +24,7 @@ class ManifestsController < ApplicationController
 
   def update
     if @manifest.update(manifest_params)
+      @manifest.sub_product_stock
       render :show, status: :ok, location: manufacture_manifests_url(@manifest.manufacture, @manifest, format: :json)
     else
       render json: @manifest.errors, status: :unprocessable_entity
@@ -31,7 +32,9 @@ class ManifestsController < ApplicationController
   end
 
   def destroy
-    @manifest.destroy
+    if @manifest.destroy
+      render :show, status: :ok, location: manufacture_manifests_url(@manifest.manufacture, @manifest, format: :json)
+    end
   end
 
   private
@@ -47,13 +50,8 @@ class ManifestsController < ApplicationController
       @manifest = Manufacture.find_by_code(params[:manufacture_id]).manifests.find_by_product_id manifest_params[:product_id]
       if @manifest
         @manifest.update quantity: @manifest.quantity + manifest_params[:quantity]
-        update_product
+        @manifest.add_product_stock manifest_params[:quantity]
         render :show, status: :ok, location: manufacture_manifests_url(@manifest.manufacture, @manifest, format: :json)
       end
-    end
-
-    def update_product
-      product = @manifest.product
-      product.update stock: product.stock + manifest_params[:quantity]
     end
 end
