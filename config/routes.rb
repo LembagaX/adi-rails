@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :manufactures do
-    resources :manifests, only: [:create, :delete]
+    resources :manifests, only: [:create, :update, :delete]
   end
   resources :assemblies, only: [:index, :show]
   resources :products
