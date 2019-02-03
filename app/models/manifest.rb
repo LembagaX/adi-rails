@@ -1,5 +1,5 @@
 class Manifest < ApplicationRecord
-  before_destroy :sub_product_stock
+  before_destroy :touch_product
 
   belongs_to :manufacture
   belongs_to :product
@@ -15,5 +15,10 @@ class Manifest < ApplicationRecord
   def add_product_stock number
     product = self.product
     product.update stock: product.stock + number
+  end
+
+  private
+  def touch_product
+    self.sub_product_stock self.quantity
   end
 end
