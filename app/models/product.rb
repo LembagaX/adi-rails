@@ -25,7 +25,7 @@ class Product < ApplicationRecord
 
   validates_presence_of :code
   validates_length_of :code, within: 4..10
-  validates_uniqueness_of :code
+  validates_uniqueness_of :code, on: :create
 
   validates_presence_of :name
   validates_length_of :name, within: 4..60
