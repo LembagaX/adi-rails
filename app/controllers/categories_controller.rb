@@ -38,7 +38,10 @@ class CategoriesController < ApplicationController
 
   private
     def set_category
-      @category = Category.friendly.find(params[:id])
+      @category = Category.find_by_code(params[:id])
+      unless @category
+        render json: {}, status: :unprocessable_entity
+      end
     end
 
     def category_params
