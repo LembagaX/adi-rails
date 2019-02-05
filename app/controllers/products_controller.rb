@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   before_action :check_token
-  before_action :check_warehouse
   before_action :set_product, only: [:show, :update, :destroy]
+  before_action :can_manage, except: [:update]
+  before_action :can_set_price, only: [:create, :update]
 
   def index
     @products = Product.all
@@ -43,5 +44,19 @@ class ProductsController < ApplicationController
 
     def product_params
       params.require(:product).permit(:code, :name, :price, :category_id)
+    end
+
+    def can_manage
+      unless can? :manage, Product
+        render json: { message: 'Unable to Manage Product' }, status: :non_authoritative_information
+      end
+    end
+
+    def can_manage
+      if params[:price] != 0
+        unless can? :set_price, Product
+          render json: { message: 'Unable to set Product Price, Unauthorized' }, status: :non_authoritative_information
+        end
+      end
     end
 end

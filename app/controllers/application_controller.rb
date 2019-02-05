@@ -4,7 +4,6 @@ class ApplicationController < ActionController::API
   def set_response_code
     @code = 400
   end
-  
   def check_token
       if request.headers['token']
           unless User.valid_token? request.headers['token']
@@ -26,5 +25,4 @@ class ApplicationController < ActionController::API
       render json: { message: 'unauthorized' }, status: :non_authoritative_information
     end
   end
-  
 end
