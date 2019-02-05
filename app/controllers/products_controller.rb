@@ -27,14 +27,13 @@ class ProductsController < ApplicationController
       render json: @product.errors, status: :unprocessable_entity
     end
   end
-  
+
   def destroy
     if @product.destroy
       render :show, status: :ok, location: @product
     else
       render json: @product.errors, status: :unprocessable_entity
     end
-    
   end
 
   private

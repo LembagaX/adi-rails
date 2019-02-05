@@ -16,6 +16,7 @@ class Product < ApplicationRecord
   belongs_to :category, optional: true
   before_save :attach_category
   before_validation :set_price_and_stock, on: :create
+  before_validation :build_code, on: :create
 
   has_many :assemblies, dependent: :destroy
   has_many :materials, through: :assemblies
@@ -45,5 +46,15 @@ class Product < ApplicationRecord
   def set_price_and_stock
     self.price = 0
     self.stock = 0
+  end
+
+  def build_code
+    first   = Time.current.strftime '%d%m%Y'
+    start   = Time.current.beginning_of_month
+    stop    = Time.current.at_end_of_month
+    mans    = Product.where(created_at: (start..stop)).count
+    offset  = '0' * (5 - mans.to_s.length)
+    role    = '01'
+    self.serial_number = first + offset + (mans + 1).to_s + role
   end
 end
