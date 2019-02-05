@@ -44,7 +44,9 @@ class Product < ApplicationRecord
   end
 
   def set_price_and_stock
-    self.price = 0
+    unless can? :set_price, Product
+      self.price = 0
+    end
     self.stock = 0
   end
 
