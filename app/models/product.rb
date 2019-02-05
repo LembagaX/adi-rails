@@ -15,7 +15,7 @@
 class Product < ApplicationRecord
   belongs_to :category, optional: true
   before_save :attach_category
-  before_validation :set_price_and_stock
+  before_validation :set_price_and_stock, on: :create
   before_validation :build_code, on: :create
 
   has_many :assemblies, dependent: :destroy

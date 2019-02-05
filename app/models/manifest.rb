@@ -1,5 +1,7 @@
 class Manifest < ApplicationRecord
   before_destroy :touch_product
+  after_create :add_product_stock
+  before_update :sub_product_stock
 
   belongs_to :manufacture
   belongs_to :product
@@ -7,14 +9,14 @@ class Manifest < ApplicationRecord
   validates_presence_of :quantity
   validates_numericality_of :quantity, greater_than_or_equal_to: 1
 
-  def sub_product_stock number
+  def sub_product_stock
     product = self.product
-    product.update stock: product.stock - number
+    product.update stock: product.stock - (self.quantity_was - self.quantity)
   end
 
-  def add_product_stock number
+  def add_product_stock
     product = self.product
-    product.update stock: product.stock + number
+    product.update! stock: product.stock + self.quantity
   end
 
   private
