@@ -6,10 +6,12 @@ class Ability
       can :manage, User
       can :manage, Product
       can :set_price, Product
+      can :manage, Category
     end
     if user.has_role? 'staff-warehouse'
       can :manage, Product
       can :manage, Depreciation
+      can :manage, Category
     end
   end
 end
