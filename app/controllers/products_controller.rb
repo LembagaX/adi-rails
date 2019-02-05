@@ -52,7 +52,7 @@ class ProductsController < ApplicationController
       end
     end
 
-    def can_manage
+    def can_set_price
       if params[:price] != 0
         unless can? :set_price, Product
           render json: { message: 'Unable to set Product Price, Unauthorized' }, status: :non_authoritative_information
