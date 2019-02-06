@@ -38,7 +38,7 @@ class CategoriesController < ApplicationController
 
   private
     def set_category
-      @category = Category.find_by_code(params[:id])
+      @category = Category.find_by_slug params[:id]
       unless @category
         render json: {}, status: :unprocessable_entity
       end
