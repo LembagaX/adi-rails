@@ -52,9 +52,7 @@ class Product < ApplicationRecord
 
   def build_code
     first   = Time.current.strftime '%d%m%Y'
-    start   = Time.current.beginning_of_month
-    stop    = Time.current.at_end_of_month
-    mans    = Product.where(created_at: (start..stop)).count
+    mans    = Product.last.id
     offset  = '0' * (5 - mans.to_s.length)
     role    = '01'
     self.serial_number = first + offset + (mans + 1).to_s + role
