@@ -1,6 +1,6 @@
 class ManifestsController < ApplicationController
   before_action :check_token
-  before_action :check_warehouse
+  before_action :check_ability
   before_action :set_manifest, only: [:show, :update, :destroy]
 
   def index
@@ -42,4 +42,11 @@ class ManifestsController < ApplicationController
     def manifest_params
       params.require(:manifest).permit(:product_id, :quantity)
     end
+
+    def check_ability
+      unless can? :manage, Assembly
+        render json: { message: 'Assembly should be done by Warehouse Role' }, status: :non_authoritative_information
+      end
+    end
+    
 end

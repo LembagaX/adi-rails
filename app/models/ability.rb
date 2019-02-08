@@ -12,6 +12,7 @@ class Ability
       can :manage, Product
       can :manage, Depreciation
       can :manage, Category
+      can :manage, Assembly
     end
   end
 end
