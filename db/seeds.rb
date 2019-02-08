@@ -5,6 +5,9 @@ MaterialPurchase.delete_all
 Price.delete_all
 Manufacture.delete_all
 Purchase.delete_all
+Material.all.each do |material|
+    material.provider.delete
+end
 Material.delete_all
 Provider.delete_all
 Product.delete_all
