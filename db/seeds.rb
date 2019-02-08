@@ -1,14 +1,14 @@
 Assembly.delete_all
-Category.delete_all
 Depreciation.delete_all
 Manifest.delete_all
-Manufacture.delete_all
 MaterialPurchase.delete_all
-Material.delete_all
 Price.delete_all
-Product.delete_all
-Provider.delete_all
+Manufacture.delete_all
 Purchase.delete_all
+Material.delete_all
+Provider.delete_all
+Product.delete_all
+Category.delete_all
 User.delete_all
 Role.delete_all
 
