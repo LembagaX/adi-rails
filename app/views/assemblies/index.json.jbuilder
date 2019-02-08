@@ -1,1 +1,1 @@
-json.array! @assemblies, partial: 'assemblies/assembly', as: :assembly
+json.partial! "products/product", product: @product

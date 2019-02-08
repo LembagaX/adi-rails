@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   before_validation :set_price_and_stock, on: :create
   before_validation :build_code, on: :create
 
-  has_many :assemblies, dependent: :destroy
+  has_many :assemblies, -> { order(created_at: :asc) }, dependent: :destroy
   has_many :materials, through: :assemblies
   has_many :manifests, dependent: :destroy
   has_many :manufactures, through: :manifests

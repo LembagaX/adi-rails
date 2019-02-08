@@ -22,6 +22,7 @@ Role.create! id: 3, display_name: 'Direktur Operasional'
 admin       = User.create! name: "Lembagax", email: "lembagax@gmail.com", password: 'secret', role_id: Role.first.id
 warehouse   = User.create! name: "Staff Warehouse", email: "warehouse@gmail.com", password: 'secret', role_id: Role.find(2).id
 manager     = User.create! name: "Etty Mulyati", email: "etty@gmail.com", password: 'secret', role_id: Role.find(3).id
+warehouse_postman   = User.create! name: "Warehouse Postman", email: "warehouse@postman.com", password: 'secret', role_id: Role.find(2).id
 
 lkt = Provider.create! name: 'PT Langgeng Karya Teknik'
 kas = Provider.create! name: 'CV Karya Abadi Sentosa'

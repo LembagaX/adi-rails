@@ -1,53 +1,60 @@
 class AssembliesController < ApplicationController
+  before_action :check_token
+  before_action :check_ability
+  before_action :set_product
   before_action :set_assembly, only: [:show, :update, :destroy]
 
-  # GET /assemblies
-  # GET /assemblies.json
   def index
-    @assemblies = Assembly.all
+    @assemblies = @product.assemblies
   end
 
-  # GET /assemblies/1
-  # GET /assemblies/1.json
   def show
   end
 
-  # POST /assemblies
-  # POST /assemblies.json
   def create
-    @assembly = Assembly.new(assembly_params)
-
+    @assembly = @product.assemblies.new(assembly_params)
     if @assembly.save
-      render :show, status: :created, location: @assembly
+      render :index, status: :created, location: product_assemblies_url(@product)
     else
       render json: @assembly.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /assemblies/1
-  # PATCH/PUT /assemblies/1.json
   def update
     if @assembly.update(assembly_params)
-      render :show, status: :ok, location: @assembly
+      render :index, status: :ok, location: product_assemblies_url(@product)
     else
       render json: @assembly.errors, status: :unprocessable_entity
     end
   end
-
-  # DELETE /assemblies/1
-  # DELETE /assemblies/1.json
+  
   def destroy
-    @assembly.destroy
+    if @assembly.destroy
+      render :index, status: :ok, location: product_assemblies_url(@product)
+    else
+      render json: @assembly.errors, status: :unprocessable_entity
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_assembly
-      @assembly = Assembly.find(params[:id])
+      @assembly = @product.assemblies.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def assembly_params
-      params.require(:assembly).permit(:product_id, :material_id, :quantity)
+    def set_product
+      @product = Product.find_by_code params[:product_id]
     end
+    
+
+    def assembly_params
+      params.require(:assembly).permit(:material_id, :quantity)
+    end
+
+    def check_ability
+      if cannot? :manage, Assembly
+        render json: { message: 'Unauthorized' }, status: :non_authoritative_information
+      end
+    end
+    
+    
 end
