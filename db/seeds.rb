@@ -5,6 +5,7 @@ MaterialPurchase.delete_all
 Price.delete_all
 Manufacture.delete_all
 Purchase.delete_all
+Material.providers.delete_all
 Material.delete_all
 Provider.delete_all
 Product.delete_all
