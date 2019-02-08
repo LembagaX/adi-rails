@@ -19,7 +19,7 @@ class Manufacture < ApplicationRecord
 
   def build_code
     first   = Time.current.strftime '%d%m%Y'
-    mans    = Manufacture.last.id
+    mans    = Manufacture.last ? Manufacture.last.id : 0
     offset  = '0' * (6 - mans.to_s.length)
     role    = '02'
     self.code = first + offset + (mans + 1).to_s + role

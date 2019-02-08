@@ -1,3 +1,17 @@
+User.delete_all
+Role.delete_all
+Assembly.delete_all
+Category.delete_all
+Depreciation.delete_all
+Manifest.delete_all
+Manufacture.delete_all
+MaterialPurchase.delete_all
+Material.delete_all
+Price.delete_all
+Product.delete_all
+Provider.delete_all
+Purchase.delete_all
+
 Role.create! id: 1, display_name: 'Administrator'
 Role.create! id: 2, display_name: 'Staff Warehouse'
 Role.create! id: 3, display_name: 'Direktur Operasional'

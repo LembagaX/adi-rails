@@ -52,7 +52,7 @@ class Product < ApplicationRecord
 
   def build_code
     first   = Time.current.strftime '%d%m%Y'
-    mans    = Product.last.id
+    mans    = Product.last ? Product.last.id : 0
     offset  = '0' * (5 - mans.to_s.length)
     role    = '01'
     self.serial_number = first + offset + (mans + 1).to_s + role
