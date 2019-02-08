@@ -12,11 +12,17 @@ class Manifest < ApplicationRecord
   def sub_product_stock
     product = self.product
     product.update stock: product.stock - (self.quantity_was - self.quantity)
+    product.assemblies.each do |assembly|
+      assembly.material.update stock: (assembly.material.stock + (assembly.quantity * (self.quantity_was - self.quantity)))
+    end
   end
 
   def add_product_stock
     product = self.product
     product.update! stock: product.stock + self.quantity
+    product.assemblies.each do |assembly|
+      assembly.material.update stock: (assembly.material.stock - (assembly.quantity * self.quantity))
+    end
   end
 
   private
