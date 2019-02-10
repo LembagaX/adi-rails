@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_10_145642) do
+ActiveRecord::Schema.define(version: 2019_02_10_152318) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "address", limit: 120
@@ -88,7 +88,9 @@ ActiveRecord::Schema.define(version: 2019_02_10_145642) do
     t.integer "currency_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order_id"
     t.index ["currency_id"], name: "index_invoices_on_currency_id"
+    t.index ["order_id"], name: "index_invoices_on_order_id"
   end
 
   create_table "manifests", force: :cascade do |t|
@@ -133,6 +135,18 @@ ActiveRecord::Schema.define(version: 2019_02_10_145642) do
     t.integer "provider_id"
     t.index ["material_id"], name: "index_materials_providers_on_material_id"
     t.index ["provider_id"], name: "index_materials_providers_on_provider_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "price"
+    t.integer "number"
+    t.boolean "canceled"
+    t.integer "user_id"
+    t.integer "address_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "prices", force: :cascade do |t|

@@ -1,3 +1,5 @@
+Order.delete_all
+Invoice.delete_all
 Address.delete_all
 Customer.delete_all
 Currency.delete_all

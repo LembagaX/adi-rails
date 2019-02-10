@@ -8,11 +8,14 @@
 #  currency_id :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  order_id    :integer
 #
 
 class Invoice < ApplicationRecord
-  enum termin: { "Tunai": 0, "30 Hari": 1, "60 Hari": 2, "90 Hari": 3 }
   belongs_to :currency
+  belongs_to :order
+  
+  enum termin: { "Tunai": 0, "30 Hari": 1, "60 Hari": 2, "90 Hari": 3 }
   before_create :build_number
 
   validates_presence_of :termin
