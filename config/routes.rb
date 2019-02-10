@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :customers
+  resources :addresses, only: [:index]
+  resources :customers do
+    resources :addresses, except: [:index]
+  end
   resources :currencies
   resources :manufactures do
     resources :manifests, only: [:create, :update, :destroy]
