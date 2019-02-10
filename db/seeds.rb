@@ -1,3 +1,4 @@
+Currency.delete_all
 Assembly.delete_all
 Depreciation.delete_all
 Manifest.delete_all
@@ -66,3 +67,6 @@ spray.assemblies.create material: c, quantity: 1
 
 chain.assemblies.create material: b, quantity: 1
 chain.assemblies.create material: c, quantity: 1
+
+idr = admin.currencies.create code: 'IDR'
+usd = admin.currencies.create code: 'USD'

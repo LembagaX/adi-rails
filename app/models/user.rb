@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_many :purchases, dependent: :destroy
   has_many :depreciations, dependent: :destroy
   has_many :manufactures
+  has_many :currencies
 
   def generate_token password
     if authenticate password
