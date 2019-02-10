@@ -1,16 +1,16 @@
 # == Schema Information
 #
-# Table name: currencies
+# Table name: customers
 #
 #  id         :integer          not null, primary key
-#  code       :string(3)
-#  user_id    :integer
+#  name       :string(45)
+#  phone      :string(13)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'rails_helper'
 
-RSpec.describe Currency, type: :model do
+RSpec.describe Customer, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

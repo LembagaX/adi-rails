@@ -8,6 +8,7 @@ class Ability
       can :set_price, Product
       can :manage, Category
       can :manage, Currency
+      can :manage, Customer
     end
     if user.has_role? 'staff-warehouse'
       can :manage, Product

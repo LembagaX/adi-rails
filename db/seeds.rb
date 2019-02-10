@@ -1,3 +1,4 @@
+Customer.delete_all
 Currency.delete_all
 Assembly.delete_all
 Depreciation.delete_all
@@ -70,3 +71,5 @@ chain.assemblies.create material: c, quantity: 1
 
 idr = admin.currencies.create code: 'IDR'
 usd = admin.currencies.create code: 'USD'
+
+abadi = Customer.create name: 'Toko Abadi', phone: '082211113333'

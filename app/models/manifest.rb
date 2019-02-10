@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: manifests
+#
+#  id             :integer          not null, primary key
+#  manufacture_id :integer
+#  product_id     :integer
+#  quantity       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 class Manifest < ApplicationRecord
   before_destroy :touch_product
   after_create :add_product_stock
