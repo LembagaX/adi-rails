@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_10_141048) do
+ActiveRecord::Schema.define(version: 2019_02_10_145642) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "address", limit: 120
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 2019_02_10_141048) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.string "number", limit: 16
+    t.integer "termin", limit: 2
+    t.integer "currency_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_id"], name: "index_invoices_on_currency_id"
   end
 
   create_table "manifests", force: :cascade do |t|
