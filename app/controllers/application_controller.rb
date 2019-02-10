@@ -25,4 +25,11 @@ class ApplicationController < ActionController::API
       render json: { message: 'unauthorized' }, status: :non_authoritative_information
     end
   end
+
+  def check_ability
+    if yield
+      render json: { message: 'unauthorized' }, status: :non_authoritative_information
+    end
+  end
+  
 end
