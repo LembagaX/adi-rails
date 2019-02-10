@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   resources :addresses, only: [:index]
   resources :customers do
     resources :addresses, except: [:index]

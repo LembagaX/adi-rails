@@ -9,6 +9,7 @@ class Ability
       can :manage, Category
       can :manage, Currency
       can :manage, Customer
+      can :manage, Order
     end
     if user.has_role? 'staff-warehouse'
       can :manage, Product

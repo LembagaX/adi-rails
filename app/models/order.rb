@@ -30,12 +30,6 @@ class Order < ApplicationRecord
   validates_presence_of :number
   validates_numericality_of :number
 
-  # def number
-  #   time = Time.current.strftime '%d%m%Y'
-  #   last = Order.last.nil? ? 1 : Order.last.number
-  #   self.number = "#{time}#{last + 1}"
-  # end
-
   def set_number
     last = Order.last.nil? ? 0 : Order.last.number
     self.number = "#{last + 1}"
