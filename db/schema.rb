@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_10_134556) do
+ActiveRecord::Schema.define(version: 2019_02_10_141048) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address", limit: 120
+    t.integer "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_addresses_on_customer_id"
+  end
 
   create_table "assemblies", force: :cascade do |t|
     t.integer "product_id"
@@ -44,6 +52,8 @@ ActiveRecord::Schema.define(version: 2019_02_10_134556) do
     t.string "phone", limit: 13
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "address_id"
+    t.index ["address_id"], name: "index_customers_on_address_id"
   end
 
   create_table "depreciations", force: :cascade do |t|

@@ -1,3 +1,4 @@
+Address.delete_all
 Customer.delete_all
 Currency.delete_all
 Assembly.delete_all
@@ -73,3 +74,4 @@ idr = admin.currencies.create code: 'IDR'
 usd = admin.currencies.create code: 'USD'
 
 abadi = Customer.create name: 'Toko Abadi', phone: '082211113333'
+abadi.addresses.create address: 'Jalan Kiara Condong 3. Block C Perumahan Kiara Condong Tangerang Banten'
