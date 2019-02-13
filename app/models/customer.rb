@@ -22,7 +22,13 @@ class Customer < ApplicationRecord
     validates_format_of :phone, with: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/, multiline: true
 
     def default_address
-        address
+      if addresses.count != 0
+        if address_id.nil?
+          addresses.first
+        else
+          address
+        end
+      end
     end
 
     def default_address= address
