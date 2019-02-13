@@ -2,9 +2,9 @@
 #
 # Table name: material_purchases
 #
-#  id          :integer          not null, primary key
-#  material_id :integer
-#  purchase_id :integer
+#  id          :bigint(8)        not null, primary key
+#  material_id :bigint(8)
+#  purchase_id :bigint(8)
 #  price       :integer
 #  quantity    :integer
 #

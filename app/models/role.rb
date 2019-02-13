@@ -2,7 +2,7 @@
 #
 # Table name: roles
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  name         :string(20)
 #  display_name :string(20)
 #  created_at   :datetime         not null

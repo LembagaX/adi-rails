@@ -2,7 +2,7 @@
 #
 # Table name: materials
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string(120)
 #  slug       :string(120)
 #  stock      :integer

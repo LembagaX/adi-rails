@@ -2,15 +2,15 @@
 #
 # Table name: purchases
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  invoice      :string(150)
 #  amount       :integer
 #  note         :string(255)
 #  purchased_at :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  provider_id  :integer
-#  user_id      :integer
+#  provider_id  :bigint(8)
+#  user_id      :bigint(8)
 #
 
 FactoryBot.define do

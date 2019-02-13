@@ -38,7 +38,9 @@ class CustomersController < ApplicationController
 
   private
     def set_customer
-      @customer = Customer.find(params[:id])
+      unless @customer = Customer.find_by_phone(params[:id])
+        record_not_found
+      end
     end
 
     def customer_params

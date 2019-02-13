@@ -2,12 +2,12 @@
 #
 # Table name: prices
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  amount      :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  material_id :integer
-#  provider_id :integer
+#  material_id :bigint(8)
+#  provider_id :bigint(8)
 #
 
 class Price < ApplicationRecord

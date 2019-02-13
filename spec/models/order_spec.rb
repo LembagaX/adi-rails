@@ -2,12 +2,12 @@
 #
 # Table name: orders
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  price      :integer
 #  number     :integer
 #  canceled   :boolean
-#  user_id    :integer
-#  address_id :integer
+#  user_id    :bigint(8)
+#  address_id :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

@@ -2,9 +2,9 @@
 #
 # Table name: assemblies
 #
-#  id          :integer          not null, primary key
-#  product_id  :integer
-#  material_id :integer
+#  id          :bigint(8)        not null, primary key
+#  product_id  :bigint(8)
+#  material_id :bigint(8)
 #  quantity    :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

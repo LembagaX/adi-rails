@@ -2,13 +2,13 @@
 #
 # Table name: invoices
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  number      :string(16)
 #  termin      :integer
-#  currency_id :integer
+#  currency_id :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  order_id    :integer
+#  order_id    :bigint(8)
 #
 
 FactoryBot.define do

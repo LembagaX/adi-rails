@@ -2,9 +2,9 @@
 #
 # Table name: manifests
 #
-#  id             :integer          not null, primary key
-#  manufacture_id :integer
-#  product_id     :integer
+#  id             :bigint(8)        not null, primary key
+#  manufacture_id :bigint(8)
+#  product_id     :bigint(8)
 #  quantity       :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null

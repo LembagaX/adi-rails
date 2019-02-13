@@ -2,9 +2,9 @@
 #
 # Table name: addresses
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  address     :string(120)
-#  customer_id :integer
+#  customer_id :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

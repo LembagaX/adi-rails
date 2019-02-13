@@ -2,13 +2,13 @@
 #
 # Table name: depreciations
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  note        :string(255)
 #  amount      :integer
 #  quantity    :integer
-#  provider_id :integer
-#  material_id :integer
-#  user_id     :integer
+#  provider_id :bigint(8)
+#  material_id :bigint(8)
+#  user_id     :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
