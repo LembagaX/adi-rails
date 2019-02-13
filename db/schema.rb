@@ -12,17 +12,20 @@
 
 ActiveRecord::Schema.define(version: 2019_02_10_152318) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
     t.string "address", limit: 120
-    t.integer "customer_id"
+    t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_addresses_on_customer_id"
   end
 
   create_table "assemblies", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "material_id"
+    t.bigint "product_id"
+    t.bigint "material_id"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
 
   create_table "currencies", force: :cascade do |t|
     t.string "code", limit: 3
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_currencies_on_code", unique: true
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.string "phone", limit: 13
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "address_id"
+    t.bigint "address_id"
     t.index ["address_id"], name: "index_customers_on_address_id"
   end
 
@@ -60,9 +63,9 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.string "note", limit: 255
     t.integer "amount"
     t.integer "quantity"
-    t.integer "provider_id"
-    t.integer "material_id"
-    t.integer "user_id"
+    t.bigint "provider_id"
+    t.bigint "material_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["material_id"], name: "index_depreciations_on_material_id"
@@ -70,7 +73,7 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.index ["user_id"], name: "index_depreciations_on_user_id"
   end
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -85,17 +88,17 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
   create_table "invoices", force: :cascade do |t|
     t.string "number", limit: 16
     t.integer "termin", limit: 2
-    t.integer "currency_id"
+    t.bigint "currency_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order_id"
+    t.bigint "order_id"
     t.index ["currency_id"], name: "index_invoices_on_currency_id"
     t.index ["order_id"], name: "index_invoices_on_order_id"
   end
 
   create_table "manifests", force: :cascade do |t|
-    t.integer "manufacture_id"
-    t.integer "product_id"
+    t.bigint "manufacture_id"
+    t.bigint "product_id"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -104,7 +107,7 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
   end
 
   create_table "manufactures", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "code", limit: 16
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -113,8 +116,8 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
   end
 
   create_table "material_purchases", force: :cascade do |t|
-    t.integer "material_id"
-    t.integer "purchase_id"
+    t.bigint "material_id"
+    t.bigint "purchase_id"
     t.integer "price"
     t.integer "quantity"
     t.index ["material_id"], name: "index_material_purchases_on_material_id"
@@ -131,8 +134,8 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
   end
 
   create_table "materials_providers", id: false, force: :cascade do |t|
-    t.integer "material_id"
-    t.integer "provider_id"
+    t.bigint "material_id"
+    t.bigint "provider_id"
     t.index ["material_id"], name: "index_materials_providers_on_material_id"
     t.index ["provider_id"], name: "index_materials_providers_on_provider_id"
   end
@@ -141,8 +144,8 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.integer "price"
     t.integer "number"
     t.boolean "canceled"
-    t.integer "user_id"
-    t.integer "address_id"
+    t.bigint "user_id"
+    t.bigint "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_orders_on_address_id"
@@ -153,8 +156,8 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "material_id"
-    t.integer "provider_id"
+    t.bigint "material_id"
+    t.bigint "provider_id"
     t.index ["material_id"], name: "index_prices_on_material_id"
     t.index ["provider_id"], name: "index_prices_on_provider_id"
   end
@@ -164,7 +167,7 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.string "name", limit: 60
     t.string "serial_number", limit: 15
     t.integer "price"
-    t.integer "category_id"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "stock"
@@ -187,8 +190,8 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.datetime "purchased_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "provider_id"
-    t.integer "user_id"
+    t.bigint "provider_id"
+    t.bigint "user_id"
     t.index ["provider_id"], name: "index_purchases_on_provider_id"
     t.index ["user_id"], name: "index_purchases_on_user_id"
   end
@@ -207,9 +210,34 @@ ActiveRecord::Schema.define(version: 2019_02_10_152318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "secret", limit: 60
-    t.integer "role_id"
+    t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "addresses", "customers"
+  add_foreign_key "assemblies", "materials"
+  add_foreign_key "assemblies", "products"
+  add_foreign_key "currencies", "users"
+  add_foreign_key "customers", "addresses"
+  add_foreign_key "depreciations", "materials"
+  add_foreign_key "depreciations", "providers"
+  add_foreign_key "depreciations", "users"
+  add_foreign_key "invoices", "currencies"
+  add_foreign_key "invoices", "orders"
+  add_foreign_key "manifests", "manufactures"
+  add_foreign_key "manifests", "products"
+  add_foreign_key "manufactures", "users"
+  add_foreign_key "material_purchases", "materials"
+  add_foreign_key "material_purchases", "purchases"
+  add_foreign_key "materials_providers", "materials"
+  add_foreign_key "materials_providers", "providers"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "users"
+  add_foreign_key "prices", "materials"
+  add_foreign_key "prices", "providers"
+  add_foreign_key "products", "categories"
+  add_foreign_key "purchases", "providers"
+  add_foreign_key "purchases", "users"
+  add_foreign_key "users", "roles"
 end

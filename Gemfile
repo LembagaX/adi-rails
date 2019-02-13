@@ -14,7 +14,7 @@ gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'sqlite3'
+  gem 'pg', '~> 1.1', '>= 1.1.3'
   gem 'rspec-rails', '~> 3.7'
   gem 'ffaker'
   gem 'factory_bot_rails'
