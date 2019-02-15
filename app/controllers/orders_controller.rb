@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params.merge({user: current_user}))
 
     if @order.save
+      @order.create_invoice invoice_params
       render :show, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
@@ -27,7 +28,7 @@ class OrdersController < ApplicationController
       render json: @order.errors, status: :unprocessable_entity
     end
   end
-  
+
   def destroy
     if @order.destroy
       render :show, status: :ok, location: @order
@@ -45,10 +46,13 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:price, :canceled, :address_id)
     end
 
+    def invoice_params
+      params.require(:invoice).permit(:termin, :currency_id)
+    end
+
     def check_ability
       if cannot? :manage, Order
         render json: { message: 'Unauthorized' }, status: :unprocessable_entity
       end
     end
-    
 end

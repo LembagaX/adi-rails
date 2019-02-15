@@ -40,6 +40,4 @@ class Order < ApplicationRecord
   def canceled_to_false
     self.canceled = 0
   end
-  
-  
 end

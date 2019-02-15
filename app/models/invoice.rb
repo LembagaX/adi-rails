@@ -14,9 +14,10 @@
 class Invoice < ApplicationRecord
   belongs_to :currency
   belongs_to :order
-  
+
   enum termin: { "Tunai": 0, "30 Hari": 1, "60 Hari": 2, "90 Hari": 3 }
   before_create :build_number
+  before_validation :set_termin
 
   validates_presence_of :termin
 
@@ -27,5 +28,11 @@ class Invoice < ApplicationRecord
     offset  = '0' * (6 - mans.to_s.length)
     role    = '03'
     self.number = first + offset + (mans + 1).to_s + role
+  end
+
+  def set_termin
+    if termin.nil?
+      self.termin = 0
+    end
   end
 end
