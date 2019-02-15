@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_052249) do
+ActiveRecord::Schema.define(version: 2019_02_15_131946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(version: 2019_02_13_052249) do
     t.datetime "updated_at", null: false
     t.index ["material_id"], name: "index_assemblies_on_material_id"
     t.index ["product_id"], name: "index_assemblies_on_product_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.integer "quantity"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_carts_on_order_id"
+    t.index ["product_id"], name: "index_carts_on_product_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -218,6 +229,8 @@ ActiveRecord::Schema.define(version: 2019_02_13_052249) do
   add_foreign_key "addresses", "customers"
   add_foreign_key "assemblies", "materials"
   add_foreign_key "assemblies", "products"
+  add_foreign_key "carts", "orders"
+  add_foreign_key "carts", "products"
   add_foreign_key "currencies", "users"
   add_foreign_key "customers", "addresses"
   add_foreign_key "depreciations", "materials"
