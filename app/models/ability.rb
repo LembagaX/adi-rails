@@ -10,6 +10,7 @@ class Ability
       can :manage, Currency
       can :manage, Customer
       can :manage, Order
+      can :manage, Cart
     end
     if user.has_role? 'staff-warehouse'
       can :manage, Product

@@ -1,5 +1,7 @@
+Cart.delete_all
 Order.delete_all
 Invoice.delete_all
+Customer.update address_id: nil
 Address.delete_all
 Customer.delete_all
 Currency.delete_all
@@ -26,8 +28,8 @@ Role.create! id: 3, display_name: 'Direktur Operasional'
 
 admin       = User.create! name: "Lembagax", email: "lembagax@gmail.com", password: 'secret', role_id: Role.first.id
 warehouse   = User.create! name: "Staff Warehouse", email: "warehouse@gmail.com", password: 'secret', role_id: Role.find(2).id
-manager     = User.create! name: "Etty Mulyati", email: "etty@gmail.com", password: 'secret', role_id: Role.find(3).id
-warehouse_postman   = User.create! name: "Warehouse Postman", email: "warehouse@postman.com", password: 'secret', role_id: Role.find(2).id
+User.create! name: "Etty Mulyati", email: "etty@gmail.com", password: 'secret', role_id: Role.find(3).id
+User.create! name: "Warehouse Postman", email: "warehouse@postman.com", password: 'secret', role_id: Role.find(2).id
 
 lkt = Provider.create! name: 'PT Langgeng Karya Teknik'
 kas = Provider.create! name: 'CV Karya Abadi Sentosa'
@@ -72,8 +74,8 @@ spray.assemblies.create material: c, quantity: 1
 chain.assemblies.create material: b, quantity: 1
 chain.assemblies.create material: c, quantity: 1
 
-idr = admin.currencies.create code: 'IDR'
-usd = admin.currencies.create code: 'USD'
+admin.currencies.create code: 'IDR'
+admin.currencies.create code: 'USD'
 
 abadi = Customer.create name: 'Toko Abadi', phone: '082211113333'
 abadi.addresses.create address: 'Jalan Kiara Condong 3. Block C Perumahan Kiara Condong Tangerang Banten'

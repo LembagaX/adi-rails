@@ -25,9 +25,8 @@ class ApplicationController < ActionController::API
       render json: { message: 'unauthorized' }, status: :non_authoritative_information
     end
   end
-  
+
   def record_not_found
     render json: { code: 422, message: 'Record Not Found' }, status: :unprocessable_entity
   end
-  
 end

@@ -15,9 +15,18 @@ class Cart < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
-  validates_presence_of :price
-  validates_numericality_of :price, is_greater_than: 0, is_less_than: 2147483647
+  after_create :sub_product, :sum_price
 
   validates_presence_of :quantity
   validates_numericality_of :quantity, is_greater_than: 0, is_less_than: 2147483647
+
+  private
+
+  def sub_product
+    product.update stock: product.stock - quantity
+  end
+
+  def sum_price
+    update price: product.price * quantity
+  end
 end
