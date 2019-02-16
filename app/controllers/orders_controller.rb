@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:price, :canceled, :address_id)
+      params.require(:order).permit(:price, :canceled, :address_id, :discount)
     end
 
     def invoice_params

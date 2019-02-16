@@ -10,6 +10,7 @@
 #  address_id :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  discount   :integer          default(0)
 #
 
 require 'rails_helper'

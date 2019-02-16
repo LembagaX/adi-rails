@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :orders do
+  resources :orders, except: [:update] do
     resources :carts, only: [:index, :create]
   end
   resources :addresses, only: [:index]
