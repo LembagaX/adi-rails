@@ -1,6 +1,6 @@
+Invoice.delete_all
 Cart.delete_all
 Order.delete_all
-Invoice.delete_all
 Customer.update address_id: nil
 Address.delete_all
 Customer.delete_all
