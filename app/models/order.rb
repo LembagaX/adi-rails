@@ -22,7 +22,6 @@ class Order < ApplicationRecord
 
   alias bill_to customer
   alias ship_to address
-  alias sub_total price
 
   before_validation :canceled_to_false, on: :create
   before_validation :set_number, on: :create
@@ -36,6 +35,10 @@ class Order < ApplicationRecord
   def set_number
     last = Order.last.nil? ? 0 : Order.last.number
     self.number = "#{last + 1}"
+  end
+
+  def sub_total
+    price
   end
 
   def total
