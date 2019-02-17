@@ -15,6 +15,8 @@ class Invoice < ApplicationRecord
   belongs_to :currency
   belongs_to :order
 
+  after_create :generate_sales_invoice
+
   enum termin: { "Tunai": 0, "30 Hari": 1, "60 Hari": 2, "90 Hari": 3 }
   before_create :build_number
   before_validation :set_termin
@@ -34,5 +36,15 @@ class Invoice < ApplicationRecord
     if termin.nil?
       self.termin = 0
     end
+  end
+
+  def generate_sales_invoice
+    unless cash?
+      order.create_sales_invoice
+    end
+  end
+
+  def cash?
+    termin == 'Tunai'
   end
 end

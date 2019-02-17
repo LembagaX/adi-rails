@@ -1,3 +1,4 @@
+SalesInvoice.delete_all
 DeliveryOrder.delete_all
 Invoice.delete_all
 Cart.delete_all

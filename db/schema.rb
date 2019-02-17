@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_17_142459) do
+ActiveRecord::Schema.define(version: 2019_02_17_150403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,15 @@ ActiveRecord::Schema.define(version: 2019_02_17_142459) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sales_invoices", force: :cascade do |t|
+    t.date "ship_date"
+    t.string "number", limit: 13
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_sales_invoices_on_order_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 45
     t.string "email", limit: 45
@@ -262,5 +271,6 @@ ActiveRecord::Schema.define(version: 2019_02_17_142459) do
   add_foreign_key "products", "categories"
   add_foreign_key "purchases", "providers"
   add_foreign_key "purchases", "users"
+  add_foreign_key "sales_invoices", "orders"
   add_foreign_key "users", "roles"
 end

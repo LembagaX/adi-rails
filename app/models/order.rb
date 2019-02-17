@@ -20,6 +20,7 @@ class Order < ApplicationRecord
   has_one :invoice, dependent: :destroy
   has_many :carts
   has_one :delivery_order, dependent: :destroy
+  has_one :sales_invoice, dependent: :destroy
 
   alias bill_to customer
   alias ship_to address
@@ -45,6 +46,10 @@ class Order < ApplicationRecord
 
   def total
     price - discount
+  end
+
+  def cash?
+    sales_invoice.nil?
   end
 
   private
