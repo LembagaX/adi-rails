@@ -19,12 +19,14 @@ class Order < ApplicationRecord
   has_one :customer, through: :address
   has_one :invoice, dependent: :destroy
   has_many :carts
+  has_one :delivery_order, dependent: :destroy
 
   alias bill_to customer
   alias ship_to address
 
   before_validation :canceled_to_false, on: :create
   before_validation :set_number, on: :create
+  after_create :create_delivery_order
 
   validates_presence_of :price
   validates_numericality_of :price
