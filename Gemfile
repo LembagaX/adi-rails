@@ -11,10 +11,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jwt'
 gem 'figaro'
 gem 'rack-cors', require: 'rack/cors'
+gem 'pg', '~> 1.1', '>= 1.1.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'pg', '~> 1.1', '>= 1.1.3'
   gem 'rspec-rails', '~> 3.7'
   gem 'ffaker'
   gem 'factory_bot_rails'
@@ -36,10 +36,11 @@ group :development do
 end
 
 group :production do
-  gem 'pg', '~> 1.1', '>= 1.1.3'
   gem 'rails_12factor'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'friendly_id', '~> 5.2.4'
 gem 'cancancan', '~> 2.0'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
