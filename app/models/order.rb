@@ -21,6 +21,8 @@ class Order < ApplicationRecord
   has_many :carts
   has_one :delivery_order, dependent: :destroy
   has_one :sales_invoice, dependent: :destroy
+  has_many :products, through: :carts
+  has_many :categories, through: :products
 
   alias bill_to customer
   alias ship_to address

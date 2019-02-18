@@ -26,25 +26,25 @@
       <td width="40%">
         <table cellpadding="0" cellspacing="0">
           <tr class="top left">
-            <td>#123131</td>
+            <td><%= @delivery_order.number %></td>
             <td>
               <strong>Delivery No</strong>
             </td>
           </tr>
           <tr class="top left">
-            <td>#123131</td>
+            <td><%= @delivery_order.created_at.strftime '%D' %></td>
             <td>
               <strong>Delivery Date</strong>
             </td>
           </tr>
 
           <tr class="top left space-top">
-            <td>asda</td>
+            <td>#<%= @order.number %></td>
             <td><strong>PO Number</strong></td>
           </tr>
 
           <tr class="top left space-top">
-            <td>asda</td>
+            <td><%= @user.name %></td>
             <td><strong>Signed by</strong></td>
           </tr>
         </table>
@@ -59,8 +59,8 @@
           </tr>
           <tr class="top left">
             <td>
-              Customer Name<br>
-              Loream ipsum dolor sit amet
+              <%= @order.customer.name %><br>
+              <%= @order.customer.default_address.address %>
             </td>
           </tr>
 
@@ -71,8 +71,8 @@
           </tr>
           <tr class="top left">
             <td>
-              Customer Name<br>
-              Loream ipsum dolor sit amet
+              <%= @order.customer.name %><br>
+              <%= @order.address.address %>
             </td>
           </tr>
         </table>
@@ -89,26 +89,27 @@
       <td width="50%">Item</td>
       <td width="10%">Code</td>
     </tr>
-    <tr class="item left">
-      <td width="20%">Serial Number</td>
-      <td width="20%">Qty</td>
-      <td width="50%">Item</td>
-      <td width="10%">Code</td>
-    </tr>
-    <tr class="item left">
-      <td width="20%">Serial Number</td>
-      <td width="20%">Qty</td>
-      <td width="50%">Item</td>
-      <td width="10%">Code</td>
-    </tr>
-    <tr class="item left">
-      <td width="20%">Serial Number</td>
-      <td width="20%">Qty</td>
-      <td width="50%">Item</td>
-      <td width="10%">Code</td>
+    <% @order.carts.each do |cart| %>
+      <tr class="item left">
+        <td width="20%"><%= cart.product.serial_number %></td>
+        <td width="20%"><%= cart.quantity %></td>
+        <td width="50%"><%= cart.product.name %></td>
+        <td width="10%"><%= cart.product.code %></td>
+      </tr>
+    <% end %>
+
+    <tr class="heading">
+      <td colspan="2"><strong><%= number_to_currency @order.sub_total, unit: 'Rp. ' %></strong></td>
+      <td colspan="2">Sub Total</td>
     </tr>
     <tr class="heading">
-      <td colspan="4">Code</td>
+      <td colspan="2"><strong><%= number_to_currency @order.discount, unit: 'Rp. ' %></strong></td>
+      <td colspan="2">Discount</td>
+    </tr>
+
+    <tr class="heading">
+      <td colspan="2"><strong><%= number_to_currency @order.total, unit: 'Rp. ' %></strong></td>
+      <td colspan="2">Total</td>
     </tr>
   </table>
 </div>

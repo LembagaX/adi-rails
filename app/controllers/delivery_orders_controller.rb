@@ -1,4 +1,6 @@
 class DeliveryOrdersController < ActionController::Base
+  before_action :set_order
+  before_action :set_user
   before_action :set_delivery_order, only: [:show, :update, :destroy]
 
   def index
@@ -7,7 +9,6 @@ class DeliveryOrdersController < ActionController::Base
 
   def show
     respond_to do |format|
-      format.html
       format.pdf do
         render pdf: "Delivery Order",
           template: "delivery_orders/show.html.erb",
@@ -45,6 +46,10 @@ class DeliveryOrdersController < ActionController::Base
 
     def set_order
       @order = Order.find_by_number params[:order_id]
+    end
+
+    def set_user
+      @user = @order.user
     end
 
     def delivery_order_params
