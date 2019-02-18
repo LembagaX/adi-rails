@@ -86,30 +86,38 @@
     <tr class="heading center">
       <td width="20%">Serial Number</td>
       <td width="20%">Qty</td>
-      <td width="50%">Item</td>
+      <td width="40%">Item</td>
       <td width="10%">Code</td>
+      <td width="10%">Category</td>
     </tr>
-    <% @order.carts.each do |cart| %>
+    <% @order.categories.each do |cat| %>
       <tr class="item left">
-        <td width="20%"><%= cart.product.serial_number %></td>
-        <td width="20%"><%= cart.quantity %></td>
-        <td width="50%"><%= cart.product.name %></td>
-        <td width="10%"><%= cart.product.code %></td>
+        <td colspan="5"><%= cat.name %></td>
       </tr>
+      <% @order.products.where(category_id: cat.id).each do |product| %>
+        <tr class="item left">
+          <td width="20%"><%= product.serial_number %></td>
+          <td width="5%"><%= @order.carts.find_by_product_id(product.id).quantity %></td>
+          <td width="50%"><%= product.name %></td>
+          <td width="20%" class="center"><%= product.code %></td>
+          <td width="5%" class="center">-</td>
+        </tr>
+      <% end %>
+
     <% end %>
 
     <tr class="heading">
       <td colspan="2"><strong><%= number_to_currency @order.sub_total, unit: 'Rp. ' %></strong></td>
-      <td colspan="2">Sub Total</td>
+      <td colspan="3">Sub Total</td>
     </tr>
     <tr class="heading">
       <td colspan="2"><strong><%= number_to_currency @order.discount, unit: 'Rp. ' %></strong></td>
-      <td colspan="2">Discount</td>
+      <td colspan="3">Discount</td>
     </tr>
 
     <tr class="heading">
       <td colspan="2"><strong><%= number_to_currency @order.total, unit: 'Rp. ' %></strong></td>
-      <td colspan="2">Total</td>
+      <td colspan="3">Total</td>
     </tr>
   </table>
 </div>
