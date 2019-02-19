@@ -17,7 +17,7 @@ class Invoice < ApplicationRecord
 
   after_create :generate_sales_invoice
 
-  enum termin: { "Tunai": 0, "30 Hari": 1, "60 Hari": 2, "90 Hari": 3 }
+  enum termin: [ "Tunai", "30 Hari", "60 Hari", "90 Hari" ]
   before_create :build_number
   before_validation :set_termin
 
@@ -40,7 +40,15 @@ class Invoice < ApplicationRecord
 
   def generate_sales_invoice
     unless cash?
-      order.create_sales_invoice
+      case Invoice.termins[termin]
+      when 1
+        @offset = 30
+      when 2
+        @offset = 60
+      when 3
+        @offset = 90
+      end
+      order.create_sales_invoice due: order.created_at + @offset.days
     end
   end
 
