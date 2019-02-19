@@ -55,6 +55,10 @@ class Order < ApplicationRecord
     sales_invoice.nil?
   end
 
+  def product_exist? id
+    !products.find_by_id(id).nil?
+  end
+
   private
   def canceled_to_false
     self.canceled = 0

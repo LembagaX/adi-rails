@@ -16,6 +16,7 @@ class Cart < ApplicationRecord
   belongs_to :product
 
   after_create :sub_product, :sum_price
+  before_create :unable_to_dup_product
 
   validates_presence_of :quantity
   validates_numericality_of :quantity, is_greater_than: 0, is_less_than: 2147483647
@@ -30,5 +31,11 @@ class Cart < ApplicationRecord
     sum = product.price * quantity
     order.update price: order.price + sum
     update price: sum
+  end
+
+  def unable_to_dup_product
+    if Order.find(order_id).product_exist? product_id
+      throw :abort
+    end
   end
 end
