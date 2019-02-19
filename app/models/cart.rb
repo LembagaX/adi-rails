@@ -21,6 +21,10 @@ class Cart < ApplicationRecord
   validates_presence_of :quantity
   validates_numericality_of :quantity, is_greater_than: 0, is_less_than: 2147483647
 
+  def unit_price
+    price / quantity
+  end
+
   private
 
   def sub_product

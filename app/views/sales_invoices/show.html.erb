@@ -1,0 +1,132 @@
+<div class="invoice-box rtl">
+  <table cellpadding="0" cellspacing="0">
+    <tr class="top">
+      <td class="title" rowspan="4">
+        Sales Invoice
+      </td>
+      <td>
+        <strong>PT ANUGRAH DISTRIBUTOR INDONESIA</strong>
+      </td>
+    </tr>
+    <tr class="top left">
+      <td>
+        JL. PRABU KIAN SANTANG NO. 169<br>
+        SANGIANG JAYA, PRIUK TANGERANG<br> 
+        02155723577
+      </td>
+    </tr>
+  </table>
+</div>
+
+<hr>
+
+<div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="60%">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top left">
+            <td>
+              <strong>Ship to</strong>
+            </td>
+          </tr>
+          <tr class="top left">
+            <td>
+              <%= @order.customer.name %><br>
+              <%= @order.customer.default_address.address %>
+            </td>
+          </tr>
+
+          <tr class="top left">
+            <td>
+              <strong>Bill to</strong>
+            </td>
+          </tr>
+          <tr class="top left">
+            <td>
+              <%= @order.customer.name %><br>
+              <%= @order.address.address %>
+            </td>
+          </tr>
+        </table>
+      </td>
+
+      <td width="40%">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top left">
+            <td><strong>Invoice Date</strong></td>
+            <td><%= @sales_invoice.created_at.strftime '%D' %></td>
+          </tr>
+          <tr class="top left">
+            <td><strong>Invoice No</strong></td>
+            <td><%= @sales_invoice.number %></td>
+          </tr>
+          <tr class="top left space-top">
+            <td><strong>Termin</strong></td>
+            <td><%= @order.invoice.termin %></td>
+          </tr>
+          <tr class="top left">
+            <td><strong>Due Date</strong></td>
+            <td><%= @sales_invoice.due.strftime '%D' %></td>
+          </tr>
+          <tr class="top left">
+            <td><strong>Ship Date</strong></td>
+            <td><%= @sales_invoice.order.created_at.strftime '%D' %></td>
+          </tr>
+          <tr class="top left space-top">
+            <td><strong>PO Number</strong></td>
+            <td>#<%= @order.number %></td>
+          </tr>
+          <tr class="top left space-top">
+            <td><strong>Currency</strong></td>
+            <td><%= @order.invoice.currency.code.upcase %></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">
+    <tr class="heading center">
+      <td width="15%">Code</td>
+      <td width="40%" class="center">Item</td>
+      <td width="5%">Qty</td>
+      <td width="10%">Unit</td>
+      <td width="10%">Amount</td>
+      <td width="20%">Serial Number</td>
+    </tr>
+
+    <% @order.categories.each do |cat| %>
+      <tr class="item left">
+        <td colspan="6"><%= cat.name %></td>
+      </tr>
+      <% @order.products.where(category_id: cat.id).each do |product| %>
+        <tr class="item">
+          <td>- <%= product.code %></td>
+          <td class="left"><%= product.name %></td>
+          <td><%= @order.carts.find_by_product_id(product.id).quantity %></td>
+          <td><%= number_to_currency(@order.carts.find_by_product_id(product.id).unit_price, unit: '') %></td>
+          <td><%= number_to_currency(@order.carts.find_by_product_id(product.id).price, unit: '') %></td>
+          <td><%= product.serial_number %></td>
+        </tr>
+      <% end %>
+    
+    <% end %>
+    
+    <tr class="heading">
+      <td colspan="2">Sub Total</td>
+      <td colspan="4"><strong><%= number_to_currency @order.sub_total, unit: 'Rp. ' %></strong></td>
+    </tr>
+    <tr class="heading">
+      <td colspan="2">Discount</td>
+      <td colspan="4"><strong><%= number_to_currency @order.discount, unit: 'Rp. ' %></strong></td>
+    </tr>
+
+    <tr class="heading">
+      <td colspan="2">Total</td>
+      <td colspan="4"><strong><%= number_to_currency @order.total, unit: 'Rp. ' %></strong></td>
+    </tr>
+  </table>
+</div>

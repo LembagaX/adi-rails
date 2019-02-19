@@ -1,13 +1,7 @@
 class DeliveryOrdersController < ActionController::Base
-  before_action :set_order
-  before_action :set_user
-  before_action :set_delivery_order, only: [:show, :update, :destroy]
+  before_action :set_order, :set_user, :set_delivery_order
 
   def index
-    @delivery_orders = DeliveryOrder.all
-  end
-
-  def show
     respond_to do |format|
       format.pdf do
         render pdf: "Delivery Order",
@@ -17,31 +11,9 @@ class DeliveryOrdersController < ActionController::Base
     end
   end
 
-  def create
-    @delivery_order = DeliveryOrder.new(delivery_order_params)
-
-    if @delivery_order.save
-      render :show, status: :created, location: @delivery_order
-    else
-      render json: @delivery_order.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    if @delivery_order.update(delivery_order_params)
-      render :show, status: :ok, location: @delivery_order
-    else
-      render json: @delivery_order.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @delivery_order.destroy
-  end
-
   private
     def set_delivery_order
-      @delivery_order = DeliveryOrder.find_by_number params[:id]
+      @delivery_order = @order.delivery_order
     end
 
     def set_order
