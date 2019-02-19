@@ -40,6 +40,7 @@ class Order < ApplicationRecord
   def set_number
     last = Order.last.nil? ? 0 : Order.last.number
     self.number = "#{last + 1}"
+    self.price = 0
   end
 
   def sub_total

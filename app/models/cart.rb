@@ -27,6 +27,8 @@ class Cart < ApplicationRecord
   end
 
   def sum_price
-    update price: product.price * quantity
+    sum = product.price * quantity
+    order.update price: order.price + sum
+    update price: sum
   end
 end
