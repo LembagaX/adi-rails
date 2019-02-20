@@ -1,6 +1,5 @@
 class SalesInvoicesController < ActionController::Base
   before_action :set_order, :set_user, :set_sales_invoice
-  before_action :set_user
 
   def index
     respond_to do |format|
