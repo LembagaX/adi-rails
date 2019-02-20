@@ -48,7 +48,7 @@ class Order < ApplicationRecord
   end
 
   def total
-    price - discount
+    discount.nil? ? price : price - discount
   end
 
   def cash?
