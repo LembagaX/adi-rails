@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
     end
 
     def invoice_params
-      params.require(:invoice).permit(:termin_id, :currency_id)
+      params.require(:invoice).permit(:termin, :currency_id)
     end
 
     def check_ability
