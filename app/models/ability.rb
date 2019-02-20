@@ -11,6 +11,7 @@ class Ability
       can :manage, Customer
       can :manage, Order
       can :manage, Cart
+      can :manage, Catalog
     end
     if user.has_role? 'staff-warehouse'
       can :manage, Product

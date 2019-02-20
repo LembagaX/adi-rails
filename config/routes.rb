@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :catalogs
   resources :orders, except: [:update] do
     resources :sales_invoices, only: :index
     resources :delivery_orders, only: :index

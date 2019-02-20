@@ -82,3 +82,5 @@ admin.currencies.create code: 'USD'
 
 abadi = Customer.create name: 'Toko Abadi', phone: '082211113333'
 abadi.addresses.create address: 'Jalan Kiara Condong 3. Block C Perumahan Kiara Condong Tangerang Banten'
+
+Catalog.create id: 1, title: 'Example Catalog', description: 'Example Catalog Description'
