@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   resources :advertises
-  resources :catalogs
+  resources :catalogs do
+    resources :advertises, only: :index do
+      member do
+        post :attach
+        delete :detach
+      end
+    end
+  end
   resources :orders, except: [:update] do
     resources :sales_invoices, only: :index
     resources :delivery_orders, only: :index

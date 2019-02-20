@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_20_023957) do
+ActiveRecord::Schema.define(version: 2019_02_20_033249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 2019_02_20_023957) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.index ["product_id"], name: "index_advertises_on_product_id"
+  end
+
+  create_table "advertises_catalogs", id: false, force: :cascade do |t|
+    t.bigint "advertise_id"
+    t.bigint "catalog_id"
+    t.index ["advertise_id"], name: "index_advertises_catalogs_on_advertise_id"
+    t.index ["catalog_id"], name: "index_advertises_catalogs_on_catalog_id"
   end
 
   create_table "assemblies", force: :cascade do |t|
@@ -264,6 +271,8 @@ ActiveRecord::Schema.define(version: 2019_02_20_023957) do
 
   add_foreign_key "addresses", "customers"
   add_foreign_key "advertises", "products"
+  add_foreign_key "advertises_catalogs", "advertises"
+  add_foreign_key "advertises_catalogs", "catalogs"
   add_foreign_key "assemblies", "materials"
   add_foreign_key "assemblies", "products"
   add_foreign_key "carts", "orders"
