@@ -23,6 +23,7 @@ class Product < ApplicationRecord
   has_many :materials, through: :assemblies
   has_many :manifests, dependent: :destroy
   has_many :manufactures, through: :manifests
+  has_many :advertises, dependent: :destroy
 
   validates_presence_of :code
   validates_length_of :code, within: 4..10
