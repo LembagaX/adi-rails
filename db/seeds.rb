@@ -1,3 +1,9 @@
+Catalog.all.each do |catalog|
+  catalog.advertises.each do |advertise|
+    catalog.advertises.destroy advertise
+  end
+end
+Advertise.delete_all
 Catalog.delete_all
 SalesInvoice.delete_all
 DeliveryOrder.delete_all
