@@ -41,8 +41,8 @@ Category.create! name: "Uncategorized"
 lube    = Category.create! name: "Lubricants"
 paint   = Category.create! name: "Spray Paint"
 
-chain   = Product.create! code: 'LB11', name: 'Chain Lube A72', serial_number: '1112222111', category: lube
-spray   = Product.create! code: 'PT12', name: 'Red Spray Paint', serial_number: '1113333111', category: paint
+chain   = Product.create! id: 1, code: 'LB11', name: 'Chain Lube A72', serial_number: '1112222111', category: lube
+spray   = Product.create! id: 2, code: 'PT12', name: 'Red Spray Paint', serial_number: '1113333111', category: paint
 
 plkt    = Purchase.create! invoice: 'LKT123132', amount: 12000000, purchased_at: Time.zone.now, provider: lkt, user: warehouse
 pkas    = Purchase.create! invoice: 'KAS123132', amount: 12000000, purchased_at: Time.zone.now, provider: kas, user: warehouse

@@ -1,0 +1,9 @@
+development:
+  cloud_name: "lembagax"
+  api_key: "792539259134834"
+  api_secret: "iNSHd49lGE-Qn1sURbMksHHVkdM"
+
+production:
+  cloud_name: "lembagax"
+  api_key: "792539259134834"
+  api_secret: "iNSHd49lGE-Qn1sURbMksHHVkdM"
